@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility", "Utility\Utility.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{FFDEB4F1-C593-4E2C-AEF0-A52F564C705E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessEntity", "BusinessEntity\BusinessEntity.csproj", "{5870D805-F9A2-4399-BCBE-EF0C1A0A5828}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{FFDEB4F1-C593-4E2C-AEF0-A52F564C705E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFDEB4F1-C593-4E2C-AEF0-A52F564C705E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFDEB4F1-C593-4E2C-AEF0-A52F564C705E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5870D805-F9A2-4399-BCBE-EF0C1A0A5828}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5870D805-F9A2-4399-BCBE-EF0C1A0A5828}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5870D805-F9A2-4399-BCBE-EF0C1A0A5828}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5870D805-F9A2-4399-BCBE-EF0C1A0A5828}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
