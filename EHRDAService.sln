@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHRDAService", "EHRDAServic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHRDAService.Tests", "EHRDAService.Tests\EHRDAService.Tests.csproj", "{13A3CD64-4C05-498D-8F67-4653DBEF6E74}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{B0BA0800-8B69-40F2-8044-FC823DF15BB5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{13A3CD64-4C05-498D-8F67-4653DBEF6E74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13A3CD64-4C05-498D-8F67-4653DBEF6E74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13A3CD64-4C05-498D-8F67-4653DBEF6E74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0BA0800-8B69-40F2-8044-FC823DF15BB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0BA0800-8B69-40F2-8044-FC823DF15BB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0BA0800-8B69-40F2-8044-FC823DF15BB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0BA0800-8B69-40F2-8044-FC823DF15BB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
