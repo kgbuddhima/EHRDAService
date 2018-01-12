@@ -7,6 +7,7 @@ using System.Web.Http;
 using DAL;
 using BLL;
 using BusinessEntity;
+using Utility;
 
 namespace EHRDAService.Controllers
 {
@@ -55,13 +56,17 @@ namespace EHRDAService.Controllers
             try
             {
                 Patient patient = _document.GetPatient(patientId);
-                return Request.CreateResponse(HttpStatusCode.OK,patient);
+                if (patient != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, patient);
+                }
+                else
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, CommonUnit.oFailed);
             }
             catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
-
         }
 
         [Route("GetPatientsCollection")]
@@ -75,9 +80,22 @@ namespace EHRDAService.Controllers
         [HttpPost]
         public HttpResponseMessage SavePatient([FromBody]dynamic value)
         {
-            string patient = Convert.ToString(value);
-            bool saved = _document.SavePatient(patient);
-            return Request.CreateResponse(HttpStatusCode.OK,"Saved");
+            try
+            {
+                string patient = Convert.ToString(value);
+                bool saved = _document.SavePatient(patient);
+                if (saved)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, CommonUnit.oSuccess);
+                }
+                else
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, CommonUnit.oFailed);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+
         }
 
 
