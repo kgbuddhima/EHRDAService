@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace BusinessEntity
 {
-    public class Patient
+    public class Patient:Person
     {
+        public string PIN { get; set; }
+        public DateTime Birthday { get; set; }
     }
 }

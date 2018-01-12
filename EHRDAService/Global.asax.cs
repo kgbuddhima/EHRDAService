@@ -18,6 +18,9 @@ namespace EHRDAService
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            //IUnityContainer container = new UnityContainer();
+            //UnityConfig.RegisterTypes(container);
         }
     }
 }
