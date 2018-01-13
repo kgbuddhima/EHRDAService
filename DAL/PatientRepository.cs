@@ -9,6 +9,7 @@ using System.Data.Sql;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using Utility;
 
 namespace DAL
 {
@@ -27,6 +28,27 @@ namespace DAL
         }
 
         /// <summary>
+        /// Deactivate patient
+        /// </summary>
+        /// <param name="patientId"></param>
+        /// <returns></returns>
+        public bool Deactivatepatient(int patientId)
+        {
+            try
+            {
+                using (IDbConnection cn = dbConnection)
+                {
+                    int result = cn.Query<int>("DeactivatePatient", new { PatientId = patientId }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                    return Convert.ToBoolean(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
         /// Get patient by ID
         /// </summary>
         /// <returns></returns>
@@ -41,7 +63,7 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                return null;
+                throw ex;
             }
         }
 
@@ -56,12 +78,12 @@ namespace DAL
             {
                 using (IDbConnection cn = dbConnection)
                 {
-                    return cn.Query<Patient>("GetPatientById", new { PatientId= patientId }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                    return cn.Query<Patient>("GetPatientById", new { PatientId = patientId }, commandType: CommandType.StoredProcedure).FirstOrDefault();
                 }
             }
             catch (Exception ex)
             {
-                return null;
+                throw ex;
             }
         }
 
@@ -81,7 +103,7 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                return null;
+                throw ex;
             }
         }
 
@@ -100,7 +122,7 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                return null;
+                throw ex;
             }
         }
 
@@ -119,7 +141,7 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                return null;
+                throw ex;
             }
         }
 
@@ -138,9 +160,9 @@ namespace DAL
                     {
                         PatientId = patient.PatientId,
                         PIN = patient.PIN,
-                        PatientName = patient.PatientName,
-                        NIC = patient.NIC,
-                        Gender = patient.Gender,
+                        PatientName = UtilityLibrary.GetValueString(patient.PatientName),
+                        NIC = UtilityLibrary.GetValueString(patient.NIC),
+                        Gender = UtilityLibrary.GetValueString(patient.Gender),
                         Birthday = patient.Birthday,
                         JoinedDate = patient.JoinedDate,
                         UpdatedDate = patient.UpdatedDate
@@ -151,7 +173,40 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                return false;
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Insert a new address od a  patient
+        /// </summary>
+        /// <param name="address"></param>
+        /// <param name="patientId"></param>
+        /// <returns></returns>
+        public bool SavePatientAddress(Address address, int patientId)
+        {
+            try
+            {
+                using (IDbConnection cn = dbConnection)
+                {
+                    int result = cn.Execute("InsertAddressofpatient", 
+                    new
+                    {
+                        AddressL1 = address.AddressL1,
+                        AddressL2 = address.AddressL2,
+                        AddressL3 = address.AddressL3,
+                        PostCode = address.PostCode,
+                        City = address.City,
+                        Country = address.Country,
+                        PatientId = patientId
+                    },
+                    commandType: CommandType.StoredProcedure);
+                    return Convert.ToBoolean(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
@@ -170,12 +225,12 @@ namespace DAL
                         new
                         {
                             PatientId = patient.PatientId,
-                            PatientName = patient.PatientName,
-                            NIC = patient.NIC,
-                            Gender = patient.Gender,
+                            PatientName = UtilityLibrary.GetValueString(patient.PatientName),
+                            NIC = UtilityLibrary.GetValueString(patient.NIC),
+                            Gender = UtilityLibrary.GetValueString(patient.Gender),
                             Birthday = patient.Birthday,
                             UpdatedDate = patient.UpdatedDate,
-                            IsActive=patient.IsActive
+                            IsActive = patient.IsActive
                         },
                         commandType: CommandType.StoredProcedure);
                     return Convert.ToBoolean(result);
@@ -183,7 +238,40 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                return false;
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Update an exisitng address od a  patient
+        /// </summary>
+        /// <param name="address"></param>
+        /// <param name="patientId"></param>
+        /// <returns></returns>
+        public bool UpdatePatientAddress(Address address, int patientId)
+        {
+            try
+            {
+                using (IDbConnection cn = dbConnection)
+                {
+                    int result = cn.Execute("UpdateAddressofpatient", 
+                    new
+                    {
+                        AddressL1 = address.AddressL1,
+                        AddressL2 = address.AddressL2,
+                        AddressL3 = address.AddressL3,
+                        PostCode = address.PostCode,
+                        City = address.City,
+                        Country = address.Country,
+                        PatientId = patientId
+                    },
+                    commandType: CommandType.StoredProcedure);
+                    return Convert.ToBoolean(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }
