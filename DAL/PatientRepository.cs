@@ -29,6 +29,25 @@ namespace DAL
         /// <summary>
         /// Get patient by ID
         /// </summary>
+        /// <returns></returns>
+        public int? GetNextPatientId()
+        {
+            try
+            {
+                using (IDbConnection cn = dbConnection)
+                {
+                    return cn.Query<int>("GetNextPatientId", commandType: CommandType.StoredProcedure).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Get patient by ID
+        /// </summary>
         /// <param name="patientId"></param>
         /// <returns></returns>
         public Patient GetPatient(int patientId)
@@ -95,7 +114,18 @@ namespace DAL
             {
                 using (IDbConnection cn = dbConnection)
                 {
-                    int result = cn.Execute("SavePatient", new { }, commandType: CommandType.StoredProcedure);
+                    int result = cn.Execute("Insertpatient", new
+                    {
+                        PatientId = patient.PatientId,
+                        PIN = patient.PIN,
+                        PatientName = patient.PatientName,
+                        NIC = patient.NIC,
+                        Gender = patient.Gender,
+                        Birthday = patient.Birthday,
+                        JoinedDate = patient.JoinedDate,
+                        UpdatedDate = patient.UpdatedDate
+                    },
+                    commandType: CommandType.StoredProcedure);
                     return Convert.ToBoolean(result);
                 }
             }
@@ -116,7 +146,18 @@ namespace DAL
             {
                 using (IDbConnection cn = dbConnection)
                 {
-                    int result = cn.Execute("UpdatePatient", new { }, commandType: CommandType.StoredProcedure);
+                    int result = cn.Execute("UpdatePatient",
+                        new
+                        {
+                            PatientId = patient.PatientId,
+                            PatientName = patient.PatientName,
+                            NIC = patient.NIC,
+                            Gender = patient.Gender,
+                            Birthday = patient.Birthday,
+                            UpdatedDate = patient.UpdatedDate,
+                            IsActive=patient.IsActive
+                        },
+                        commandType: CommandType.StoredProcedure);
                     return Convert.ToBoolean(result);
                 }
             }

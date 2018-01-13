@@ -12,6 +12,12 @@ namespace DAL
         /// <summary>
         /// Get patient by ID
         /// </summary>
+        /// <returns></returns>
+        int? GetNextPatientId();
+
+        /// <summary>
+        /// Get patient by ID
+        /// </summary>
         /// <param name="patientId"></param>
         /// <returns></returns>
         Patient GetPatient(int patientId);
