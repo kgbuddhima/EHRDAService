@@ -19,6 +19,27 @@ namespace BLL
         }
 
         /// <summary>
+        /// Deactivate patient
+        /// </summary>
+        /// <param name="patientId"></param>
+        /// <returns></returns>
+        public bool Deactivatepatient(int patientId)
+        {
+            try
+            {
+                if (patientId > 0)
+                {
+                    return _repository.Deactivatepatient(patientId);
+                }
+                else throw new NullReferenceException();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
         /// Get patient by ID
         /// </summary>
         /// <returns></returns>
@@ -47,7 +68,7 @@ namespace BLL
                 {
                     return _repository.GetPatientAddress(patientId);
                 }
-                else return null;
+                else throw new NullReferenceException();
             }
             catch (Exception ex)
             {
@@ -122,11 +143,38 @@ namespace BLL
         {
             try
             {
-                if (patient != null)
+                if (patient != null && patient.Address != null)
                 {
-                    return _repository.SavePatient(patient);
+                    bool result = _repository.SavePatient(patient);
+                    if (result)
+                    {
+                        _repository.SavePatientAddress(patient.Address,patient.PatientId);
+                    }
+                    return result;
                 }
                 else throw new NullReferenceException();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Insert a new address od a  patient
+        /// </summary>
+        /// <param name="address"></param>
+        /// <param name="patientId"></param>
+        /// <returns></returns>
+        public bool SavePatientAddress(Address address, int patientId)
+        {
+            try
+            {
+                if (address != null || patientId <= 0)
+                {
+                    return _repository.SavePatientAddress(address, patientId);
+                }
+                else return false;
             }
             catch (Exception ex)
             {
@@ -145,14 +193,49 @@ namespace BLL
             {
                 if (patient != null)
                 {
-                    return _repository.UpdatePatient(patient);
+                    bool result =  _repository.UpdatePatient(patient);
+                    if (result)
+                    {
+                        if (GetPatientAddress(patient.PatientId) != null)
+                        {
+                            _repository.UpdatePatientAddress(patient.Address, patient.PatientId);
+                        }
+                        else
+                        {
+                            _repository.SavePatientAddress(patient.Address, patient.PatientId);
+                        }
+                    }
+                    return result;
                 }
                 else throw new NullReferenceException();
             }
             catch (Exception ex)
             {
                 throw ex;
-            }                    
+            }
         }
+
+        /// <summary>
+        /// Update an exisitng address od a  patient
+        /// </summary>
+        /// <param name="address"></param>
+        /// <param name="patientId"></param>
+        /// <returns></returns>
+        public bool UpdatePatientAddress(Address address, int patientId)
+        {
+            try
+            {
+                if (address != null || patientId <= 0)
+                {
+                    return _repository.UpdatePatientAddress(address, patientId);
+                }
+                else return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }
