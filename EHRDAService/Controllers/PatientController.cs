@@ -44,13 +44,28 @@ namespace EHRDAService.Controllers
         {
         }
 
-        // DELETE: api/Patient/5
-        public void Delete(int id)
+        [Route("DeletePatient")]
+        [HttpPost]
+        public HttpResponseMessage DeletePatient(int id)
         {
+            try
+            {
+                bool deactivated =  _document.Deactivatepatient(id);
+                if (deactivated)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, CommonUnit.oSuccess);
+                }
+                else
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, CommonUnit.oFailed);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
 
         [Route("GetPatient")]
-        [HttpGet]
+        [HttpPost]
         public HttpResponseMessage GetPatient(int patientId)
         {
             try
@@ -70,7 +85,7 @@ namespace EHRDAService.Controllers
         }
 
         [Route("GetPatientsCollection")]
-        [HttpGet]
+        [HttpPost]
         public string GetPatientsCollection()
         {
             return string.Empty;
