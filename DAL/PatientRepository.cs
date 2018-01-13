@@ -66,6 +66,26 @@ namespace DAL
         }
 
         /// <summary>
+        /// Get address of a patient
+        /// </summary>
+        /// <param name="patientId"></param>
+        /// <returns></returns>
+        public Address GetPatientAddress(int patientId)
+        {
+            try
+            {
+                using (IDbConnection cn = dbConnection)
+                {
+                    return cn.Query<Address>("GetAddressOfpatient", new { PatientId = patientId }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Get all patients
         /// </summary>
         /// <returns></returns>

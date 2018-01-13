@@ -23,6 +23,13 @@ namespace DAL
         Patient GetPatient(int patientId);
 
         /// <summary>
+        /// Get address of a patient
+        /// </summary>
+        /// <param name="patientId"></param>
+        /// <returns></returns>
+        Address GetPatientAddress(int patientId);
+
+        /// <summary>
         /// Get all patients
         /// </summary>
         /// <returns></returns>
