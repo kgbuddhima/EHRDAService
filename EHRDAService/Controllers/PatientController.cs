@@ -78,12 +78,11 @@ namespace EHRDAService.Controllers
 
         [Route("SavePatient")]
         [HttpPost]
-        public HttpResponseMessage SavePatient([FromBody]dynamic value)
+        public HttpResponseMessage SavePatient([FromBody]Patient value)
         {
             try
             {
-                string patient = Convert.ToString(value);
-                bool saved = _document.SavePatient(patient);
+                bool saved = _document.SavePatient(value);
                 if (saved)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, CommonUnit.oSuccess);
@@ -95,9 +94,26 @@ namespace EHRDAService.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
-
         }
 
-
+        [Route("UpdatePatient")]
+        [HttpPost]
+        public HttpResponseMessage UpdatePatient([FromBody]Patient value)
+        {
+            try
+            {
+                bool saved = _document.UpdatePatient(value);
+                if (saved)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, CommonUnit.oSuccess);
+                }
+                else
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, CommonUnit.oFailed);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
     }
 }
