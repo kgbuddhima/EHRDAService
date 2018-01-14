@@ -103,6 +103,32 @@ namespace BLL
         }
 
         /// <summary>
+        /// Get patient by PIN
+        /// </summary>
+        /// <param name="pin"></param>
+        /// <returns></returns>
+        public Patient GetPatient(string pin)
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(pin))
+                {
+                    Patient result = _repository.GetPatient(pin);
+                    if (result != null)
+                    {
+                        result.Address = GetPatientAddress(result.PatientId);
+                    }
+                    return result;
+                }
+                else throw new NullReferenceException();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
         /// Get all patients
         /// </summary>
         /// <returns></returns>
