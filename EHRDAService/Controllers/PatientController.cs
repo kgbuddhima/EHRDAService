@@ -64,13 +64,33 @@ namespace EHRDAService.Controllers
             }
         }
 
-        [Route("GetPatient")]
+        [Route("GetPatientById")]
         [HttpPost]
-        public HttpResponseMessage GetPatient(int patientId)
+        public HttpResponseMessage GetPatientById(int patientId)
         {
             try
             {
                 Patient patient = _document.GetPatient(patientId);
+                if (patient != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, patient);
+                }
+                else
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, CommonUnit.oFailed);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [Route("GetPatientByPIN")]
+        [HttpPost]
+        public HttpResponseMessage GetPatientByPIN(string pin)
+        {
+            try
+            {
+                Patient patient = _document.GetPatient(pin);
                 if (patient != null)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, patient);
