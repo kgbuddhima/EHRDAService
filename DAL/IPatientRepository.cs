@@ -30,6 +30,13 @@ namespace DAL
         Patient GetPatient(int patientId);
 
         /// <summary>
+        /// Get patient by PIN
+        /// </summary>
+        /// <param name="pin"></param>
+        /// <returns></returns>
+        Patient GetPatient(string pin);
+
+        /// <summary>
         /// Get address of a patient
         /// </summary>
         /// <param name="patientId"></param>

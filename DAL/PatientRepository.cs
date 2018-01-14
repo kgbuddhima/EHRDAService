@@ -88,6 +88,26 @@ namespace DAL
         }
 
         /// <summary>
+        /// Get patient by PIN
+        /// </summary>
+        /// <param name="pin"></param>
+        /// <returns></returns>
+        public Patient GetPatient(string pin)
+        {
+            try
+            {
+                using (IDbConnection cn = dbConnection)
+                {
+                    return cn.Query<Patient>("GetPatientByPIN", new { PIN = pin }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
         /// Get address of a patient
         /// </summary>
         /// <param name="patientId"></param>
