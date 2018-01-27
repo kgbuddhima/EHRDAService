@@ -28,6 +28,58 @@ namespace DAL
         }
 
         /// <summary>
+        /// validate login credentials of patient member
+        /// </summary>
+        /// <param name="credentials"></param>
+        /// <returns>PatientID</returns>
+        public int CheckPatientLogin(Credentials credentials)
+        {
+            try
+            {
+                using (IDbConnection cn = dbConnection)
+                {
+                    return cn.Query<int>("CheckPatientLogin",
+                    new
+                    {
+                        PPassword = credentials.UserName,
+                        PUserName = credentials.Password
+                    },
+                    commandType: CommandType.StoredProcedure).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// validate login credentials of staff member
+        /// </summary>
+        /// <param name="credentials"></param>
+        /// <returns>StaffID</returns>
+        public int CheckStaffLogin(Credentials credentials)
+        {
+            try
+            {
+                using (IDbConnection cn = dbConnection)
+                {
+                    return cn.Query<int>("CheckStaffLogin",
+                    new
+                    {
+                        PPassword = credentials.UserName,
+                        PUserName = credentials.Password
+                    },
+                    commandType: CommandType.StoredProcedure).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
         /// Deactivate patient
         /// </summary>
         /// <param name="patientId"></param>
@@ -231,6 +283,34 @@ namespace DAL
         }
 
         /// <summary>
+        /// Insert Patient Credentials
+        /// </summary>
+        /// <param name="credentials"></param>
+        /// <returns></returns>
+        public bool SavePatientCredentials(Credentials credentials)
+        {
+            try
+            {
+                using (IDbConnection cn = dbConnection)
+                {
+                    int result = cn.Execute("InsertPatientCredentials",
+                    new
+                    {
+                        PatientID = credentials.UserID,
+                        PPassword = credentials.UserName,
+                        PUserName = credentials.Password
+                    },
+                    commandType: CommandType.StoredProcedure);
+                    return Convert.ToBoolean(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
         /// Update Patient
         /// </summary>
         /// <param name="patient"></param>
@@ -284,6 +364,34 @@ namespace DAL
                         City = address.City,
                         Country = address.Country,
                         PatientId = patientId
+                    },
+                    commandType: CommandType.StoredProcedure);
+                    return Convert.ToBoolean(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Update patient credentials
+        /// </summary>
+        /// <param name="credentials"></param>
+        /// <returns></returns>
+        public bool UpdatePatientCredentials(Credentials credentials)
+        {
+            try
+            {
+                using (IDbConnection cn = dbConnection)
+                {
+                    int result = cn.Execute("UpdatePatientCredentials",
+                    new
+                    {
+                        PatientID = credentials.UserID,
+                        PPassword = credentials.UserName,
+                        PUserName = credentials.Password
                     },
                     commandType: CommandType.StoredProcedure);
                     return Convert.ToBoolean(result);

@@ -10,6 +10,20 @@ namespace DAL
     public interface IPatientRepository
     {
         /// <summary>
+        /// validate login credentials of patient member
+        /// </summary>
+        /// <param name="credentials"></param>
+        /// <returns>PatientID</returns>
+        int CheckPatientLogin(Credentials credentials);
+
+        /// <summary>
+        /// validate login credentials of staff member
+        /// </summary>
+        /// <param name="credentials"></param>
+        /// <returns>StaffID</returns>
+        int CheckStaffLogin(Credentials credentials);
+
+        /// <summary>
         /// Deactivate patient
         /// </summary>
         /// <param name="patientId"></param>
@@ -71,6 +85,13 @@ namespace DAL
         bool SavePatientAddress(Address address, int patientId);
 
         /// <summary>
+        /// Insert Patient Credentials
+        /// </summary>
+        /// <param name="credentials"></param>
+        /// <returns></returns>
+        bool SavePatientCredentials(Credentials credentials);
+
+        /// <summary>
         /// Update Patient
         /// </summary>
         /// <param name="patient"></param>
@@ -84,5 +105,12 @@ namespace DAL
         /// <param name="patientId"></param>
         /// <returns></returns>
         bool UpdatePatientAddress(Address address, int patientId);
+
+        /// <summary>
+        /// Update patient credentials
+        /// </summary>
+        /// <param name="credentials"></param>
+        /// <returns></returns>
+        bool UpdatePatientCredentials(Credentials credentials);
     }
 }
