@@ -27,6 +27,8 @@ namespace DAL
             }
         }
 
+        #region Public methods
+
         /// <summary>
         /// validate login credentials of patient member
         /// </summary>
@@ -402,5 +404,9 @@ namespace DAL
                 throw ex;
             }
         }
+
+
+        #endregion
+
     }
 }
