@@ -19,6 +19,48 @@ namespace BLL
         }
 
         /// <summary>
+        /// validate login credentials of patient member
+        /// </summary>
+        /// <param name="credentials"></param>
+        /// <returns>PatientID</returns>
+        public int CheckPatientLogin(Credentials credentials)
+        {
+            try
+            {
+                if (credentials!=null)
+                {
+                    return _repository.CheckPatientLogin(credentials);
+                }
+                else throw new NullReferenceException();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// validate login credentials of staff member
+        /// </summary>
+        /// <param name="credentials"></param>
+        /// <returns>StaffID</returns>
+        public int CheckStaffLogin(Credentials credentials)
+        {
+            try
+            {
+                if (credentials != null)
+                {
+                    return _repository.CheckStaffLogin(credentials);
+                }
+                else throw new NullReferenceException();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
         /// Deactivate patient
         /// </summary>
         /// <param name="patientId"></param>
@@ -175,6 +217,7 @@ namespace BLL
                     if (result)
                     {
                         _repository.SavePatientAddress(patient.Address,patient.PatientId);
+                        _repository.SavePatientCredentials(patient.UserCredentials);
                     }
                     return result;
                 }
@@ -229,6 +272,10 @@ namespace BLL
                         else
                         {
                             _repository.SavePatientAddress(patient.Address, patient.PatientId);
+                        }
+                        if (patient.UserCredentials!=null)
+                        {
+                            _repository.UpdatePatientCredentials(patient.UserCredentials);
                         }
                     }
                     return result;
