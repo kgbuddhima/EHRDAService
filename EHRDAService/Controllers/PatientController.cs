@@ -20,27 +20,44 @@ namespace EHRDAService.Controllers
             _document = new PatientDocument();
         }
 
-
-        // GET: api/Patient
-        public IEnumerable<string> Get()
+        [Route("ChekPatientLogin")]
+        [HttpPost]
+        public HttpResponseMessage CheckPatientLogin(Credentials credentials)
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                int patientId = _document.CheckPatientLogin(credentials);
+                if (patientId > 0)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, patientId);
+                }
+                else
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, CommonUnit.oFailed);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
 
-        // GET: api/Patient/5
-        public string Get(int id)
+        [Route("CheckStaffLogin")]
+        [HttpPost]
+        public HttpResponseMessage CheckStaffLogin(Credentials credentials)
         {
-            return "value";
-        }
-
-        // POST: api/Patient
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/Patient/5
-        public void Put(int id, [FromBody]string value)
-        {
+            try
+            {
+                int staffId = _document.CheckStaffLogin(credentials);
+                if (staffId > 0)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, staffId);
+                }
+                else
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, CommonUnit.oFailed);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
 
         [Route("DeletePatient")]
