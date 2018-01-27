@@ -18,6 +18,8 @@ namespace BLL
             _repository = new PatientRepository();
         }
 
+        #region Public methods
+
         /// <summary>
         /// validate login credentials of patient member
         /// </summary>
@@ -309,6 +311,8 @@ namespace BLL
                 throw ex;
             }
         }
+
+        #endregion
 
     }
 }
