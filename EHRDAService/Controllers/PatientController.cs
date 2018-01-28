@@ -40,6 +40,26 @@ namespace EHRDAService.Controllers
             }
         }
 
+        [Route("GetNextPatientId")]
+        [HttpPost]
+        public HttpResponseMessage GetNextPatientId()
+        {
+            try
+            {
+                int pId = (int)_document.GetNextPatientId();
+                if (pId>0)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, pId);
+                }
+                else
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, 0);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
         [Route("GetPatientById")]
         [HttpPost]
         public HttpResponseMessage GetPatientById(int patientId)
