@@ -43,8 +43,8 @@ namespace DAL
                     return cn.Query<int>("CheckPatientLogin",
                     new
                     {
-                        PPassword = credentials.UserName,
-                        PUserName = credentials.Password
+                        PPassword = credentials.Password,
+                        PUserName = credentials.UserName
                     },
                     commandType: CommandType.StoredProcedure).FirstOrDefault();
                 }
@@ -69,8 +69,8 @@ namespace DAL
                     return cn.Query<int>("CheckStaffLogin",
                     new
                     {
-                        PPassword = credentials.UserName,
-                        PUserName = credentials.Password
+                        PPassword = credentials.Password,
+                        PUserName = credentials.UserName
                     },
                     commandType: CommandType.StoredProcedure).FirstOrDefault();
                 }
