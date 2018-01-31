@@ -22,7 +22,7 @@ namespace EHRDAService.Controllers
 
         [Route("ChekPatientLogin")]
         [HttpPost]
-        public HttpResponseMessage CheckPatientLogin(Credentials credentials)
+        public HttpResponseMessage CheckPatientLogin([FromBody]Credentials credentials)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace EHRDAService.Controllers
 
         [Route("CheckStaffLogin")]
         [HttpPost]
-        public HttpResponseMessage CheckStaffLogin(Credentials credentials)
+        public HttpResponseMessage CheckStaffLogin([FromBody]Credentials credentials)
         {
             try
             {

@@ -22,7 +22,7 @@ namespace EHRDAService.Controllers
 
         [Route("DeletePatient")]
         [HttpPost]
-        public HttpResponseMessage DeletePatient(int id)
+        public HttpResponseMessage DeletePatient([FromBody]int id)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace EHRDAService.Controllers
 
         [Route("GetPatientById")]
         [HttpPost]
-        public HttpResponseMessage GetPatientById(int patientId)
+        public HttpResponseMessage GetPatientById([FromBody]int patientId)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace EHRDAService.Controllers
 
         [Route("GetPatientByPIN")]
         [HttpPost]
-        public HttpResponseMessage GetPatientByPIN(string pin)
+        public HttpResponseMessage GetPatientByPIN([FromBody]string pin)
         {
             try
             {
