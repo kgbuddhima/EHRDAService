@@ -102,9 +102,22 @@ namespace EHRDAService.Controllers
 
         [Route("GetPatientsCollection")]
         [HttpPost]
-        public string GetPatientsCollection()
+        public HttpResponseMessage GetPatientsCollection()
         {
-            return string.Empty;
+            try
+            {
+                List<Patient> col = _document.GetPatientCollection();
+                if (col!=null && col.Count>0)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, col);
+                }
+                else
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, CommonUnit.oFailed);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
 
         [Route("SavePatient")]
