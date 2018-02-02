@@ -218,8 +218,20 @@ namespace BLL
                     bool result = _repository.SavePatient(patient);
                     if (result)
                     {
-                        _repository.SavePatientAddress(patient.Address,patient.PatientId);
-                        _repository.SavePatientCredentials(patient.UserCredentials);
+                        if (patient.Address != null)
+                        {
+                            _repository.SavePatientAddress(patient.Address, patient.PatientId);
+                        }
+                        patient.UserCredentials = new Credentials()
+                        {
+                            UserID = patient.PatientId,
+                            UserName= patient.PIN,
+                            Password="abc@123"
+                        };
+                        if (patient.UserCredentials != null)
+                        {
+                            _repository.SavePatientCredentials(patient.UserCredentials);
+                        }
                     }
                     return result;
                 }
