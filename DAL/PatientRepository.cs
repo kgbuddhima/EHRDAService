@@ -69,8 +69,8 @@ namespace DAL
                     return cn.Query<int>("CheckStaffLogin",
                     new
                     {
-                        PPassword = credentials.Password,
-                        PUserName = credentials.UserName
+                        SPassword = credentials.Password,
+                        SUserName = credentials.UserName
                     },
                     commandType: CommandType.StoredProcedure).FirstOrDefault();
                 }
@@ -92,8 +92,8 @@ namespace DAL
             {
                 using (IDbConnection cn = dbConnection)
                 {
-                    int result = cn.Query<int>("DeactivatePatient", new { PatientId = patientId }, commandType: CommandType.StoredProcedure).FirstOrDefault();
-                    return Convert.ToBoolean(result);
+                    int result = cn.Execute("DeactivatePatient", new { PatientId = patientId }, commandType: CommandType.StoredProcedure);
+                    return (result>0);
                 }
             }
             catch (Exception ex)
