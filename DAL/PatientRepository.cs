@@ -299,8 +299,8 @@ namespace DAL
                     new
                     {
                         PatientID = credentials.UserID,
-                        PPassword = credentials.UserName,
-                        PUserName = credentials.Password
+                        PPassword = credentials.Password,
+                        PUserName = credentials.UserName
                     },
                     commandType: CommandType.StoredProcedure);
                     return Convert.ToBoolean(result);
@@ -392,8 +392,8 @@ namespace DAL
                     new
                     {
                         PatientID = credentials.UserID,
-                        PPassword = credentials.UserName,
-                        PUserName = credentials.Password
+                        PPassword = credentials.Password,
+                        PUserName = credentials.UserName
                     },
                     commandType: CommandType.StoredProcedure);
                     return Convert.ToBoolean(result);
